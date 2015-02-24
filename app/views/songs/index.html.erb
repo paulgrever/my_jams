@@ -1,0 +1,9 @@
+<h1>All Songs (index)</h1>
+<ol>
+<% @songs.each do |song| %>
+  <li><%= link_to song.title, song  %> by <%= song.artist%></li>
+  <% end %>
+</ol>
+<%= link_to "New Song", new_song_path %>
+
+
