@@ -1,8 +1,11 @@
 class SongsController < ApplicationController
   before_action :set_song, only: [:show, :edit, :destroy, :update]
-
+  before_action :redirect_unless_current_user, only: [:index]
+  
   def index
-    @songs = Song.all    
+
+    # @songs = Song.all    
+    @songs = current_user.songs  
   end
 
   def show
@@ -10,11 +13,21 @@ class SongsController < ApplicationController
   end
 
   def new
-    @song = Song.new
+    if current_user.nil?
+      redirect_to login_path, alert: "You Must Login First"
+    else
+      @song = current_user.songs.create
+    end
+    # if !current_user.nil?
+    #   @song = current_user.songs.create
+    # else
+    #   @song = Song.new 
+    # end
   end
 
   def create
     song = Song.new(song_params)
+
     if song.save
       redirect_to song
     else

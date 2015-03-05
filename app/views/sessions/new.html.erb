@@ -1,0 +1,16 @@
+<div id ="errors">
+  <%= flash[:errors] %>
+</div>
+<div id ="notice">
+  <%= flash[:notice] %>
+</div>
+<h1>Login Page</h1>
+<% if current_user.present? %>
+  <h2> hi <%= current_user.username %></h2>
+<% else %>
+  <%= form_for(:session, url: login_path) do |f| %>
+    <%= f.text_field :username %>
+    <%= f.password_field :password %>
+    <%= f.submit "Sign in" %>
+  <% end %>
+<% end %>

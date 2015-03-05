@@ -1,0 +1,9 @@
+<h1>Welcome <%= current_user.username %></h1>
+<h3>Here are the artists you are currently following:</h3>
+<ol>
+<% current_user.songs.each do |song| %>
+  <li><%= song.artist%></li>
+  <% end %>
+</ol>
+
+<p><%= button_to 'My Songs', songs_path, method: :get, class: "button" %></p>

@@ -6,8 +6,15 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body> 
+  <% if current_user.present? %>
+    <p>logged in as <%= current_user.username %></p>
+    <%= button_to 'log out', logout_path, method: :delete, class: "button" %>
 
+    <%end %>
+    <% flash.each do |name, msg| %>
+  <%= content_tag :div, msg, :id => "flash_#{name}" %>
+<% end %>
 <%= yield %>
 
 </body>
